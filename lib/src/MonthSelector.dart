@@ -82,6 +82,7 @@ class MonthSelectorState extends State<MonthSelector> {
               : null,
       child: Text(
         DateFormat.MMM(locale).format(date),
+        style: TextStyle(fontSize: 20), // Burası eklendi
       ),
     );
   }
