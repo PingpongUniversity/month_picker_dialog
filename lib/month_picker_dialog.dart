@@ -19,6 +19,8 @@ Future<DateTime?> showMonthPicker({
   DateTime? firstDate,
   DateTime? lastDate,
   Locale? locale,
+  required String cacelButtonText, // Burası elle eklenedi
+  required String acceptButtonText, // Burası elle eklenedi
 }) async {
   assert(context != null);
   assert(initialDate != null);
@@ -34,6 +36,8 @@ Future<DateTime?> showMonthPicker({
       lastDate: lastDate,
       locale: locale,
       localizations: localizations,
+      cacelButtonText: cacelButtonText, // Burası elle eklenedi
+      acceptButtonText: acceptButtonText, // Burası elle eklenedi
     ),
   );
 }
@@ -42,11 +46,15 @@ class _MonthPickerDialog extends StatefulWidget {
   final DateTime? initialDate, firstDate, lastDate;
   final MaterialLocalizations localizations;
   final Locale? locale;
+  final String cacelButtonText; // Burası elle eklenedi
+  final String acceptButtonText; // Burası elle eklenedi
 
   const _MonthPickerDialog({
     Key? key,
     required this.initialDate,
     required this.localizations,
+    required this.acceptButtonText, // Burası elle eklenedi
+    required this.cacelButtonText, // Burası elle eklenedi
     this.firstDate,
     this.lastDate,
     this.locale,
@@ -145,11 +153,11 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       children: <Widget>[
         FlatButton(
           onPressed: () => Navigator.pop(context, null),
-          child: Text(widget.localizations.cancelButtonLabel),
+            child: Text(widget.cacelButtonText), // Burası değiştirildi
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, selectedDate),
-          child: Text(widget.localizations.okButtonLabel),
+         child: Text(widget.acceptButtonText), // Burası değiştirildi
         )
       ],
     );
@@ -157,17 +165,13 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   Widget buildHeader(ThemeData theme, String locale) {
     return Material(
-      color: theme.primaryColor,
+      color: Color(0xFF202545), // Burası değiştirilde
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              '${DateFormat.yMMM(locale).format(selectedDate!)}',
-              style: theme.primaryTextTheme.subtitle1,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -213,6 +217,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                       IconButton(
                         icon: Icon(
                           Icons.keyboard_arrow_up,
+                          size: 30, // Burası eklendi
                           color: snapshot.data!.upState
                               ? theme.primaryIconTheme.color
                               : theme.primaryIconTheme.color!.withOpacity(0.5),
@@ -223,6 +228,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                       IconButton(
                         icon: Icon(
                           Icons.keyboard_arrow_down,
+                          size: 30, // Burası eklendi
                           color: snapshot.data!.downState
                               ? theme.primaryIconTheme.color
                               : theme.primaryIconTheme.color!.withOpacity(0.5),
@@ -244,7 +250,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   Widget buildPager(ThemeData theme, String locale) {
     return SizedBox(
-      height: 230.0,
+     height: 225.0, // Burası değiştirildi,
       width: 300.0,
       child: Theme(
         data: theme.copyWith(
